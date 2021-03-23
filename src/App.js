@@ -1,19 +1,19 @@
 import React from "react";
+import Calendar from "./Calendar";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>월</h1>
-      <div>MON</div>
-      <div>TUE</div>
-      <div>WED</div>
-      <div>THU</div>
-      <div>FRI</div>
-      <div>SAT</div>
-      <div>SUN</div>
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
 
-    </div>
-  );
+    };
+  }
+
+  render(){
+    return (
+      <Calendar/>
+    );
+  }
 }
 
 export default App;
