@@ -35,7 +35,7 @@ const Calendar = (props) => {
   }
 
   return (
-    <AppStyle>
+    <div>
       <Head>
         <button onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'month')) }}><FiChevronLeft/></button>
         <h2>{today.format('MMM YYYY')}</h2>
@@ -58,16 +58,9 @@ const Calendar = (props) => {
           </tbody>
         </table>
       </Body>
-
-    </AppStyle>
+    </div>
   )
 };
-
-const AppStyle = styled.div`
-  background-color: rgb(234, 244, 250);
-  padding-bottom: 1px;
-  height: 100vh;
-`;
 
 const Head = styled.div`
   display: flex;
@@ -75,6 +68,8 @@ const Head = styled.div`
   align-items: center;
   width: 40vw;
   margin: 0 auto;
+  height: 10vh;
+  padding-top: 5px;
 
   & h2 {
     margin:20px 40px;
@@ -99,23 +94,37 @@ const Head = styled.div`
 `;
 
 const Body = styled.div`
-  margin: 4%;
+  margin: 20px;
   background-color: rgb(255, 255, 253);
+  height: 82vh;
+  box-shadow: 1px 1px 8px gray;
 
   & table{
     width: 100%;
-    height: 75vh;
+    height: 93%;
+
+    > tbody > tr > td {
+        padding: 5px;
+        vertical-align: text-top;
+        > span {
+          font-size: 2vh;
+        }
+        :first-child, :last-child{
+        color: rgb(238, 123, 123);
+      }
+    }
   }
-  
 `;
 
 const Weekdays = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 7%;
+  min-height: 50px;
   
   & div {
-    width: 20%;
+    width: 100%;
     text-align: center;
     font-weight: bold;
     color: gray;
