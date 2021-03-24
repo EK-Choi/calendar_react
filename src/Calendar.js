@@ -3,6 +3,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import styled from "styled-components";
 import {useState} from 'react';
 import moment from 'moment';
+import { GrAdd } from "react-icons/gr";
 
 const Calendar = (props) => {
   const [getMoment, setMoment]=useState(moment());     
@@ -19,16 +20,30 @@ const Calendar = (props) => {
       result = result.concat(
         <tr key={week}>
           {
-            Array(7).fill(0).map((data, index) => {
-              let days = today.clone().startOf('year').week(week).startOf('week').add(index, 'day');
+              Array(7).fill(0).map((data, index) => {
+                let days = today.clone().startOf('year').week(week).startOf('week').add(index, 'day');
 
-              return(
-                  <td key={index}>
-                    <span>{days.format('D')}</span>
-                  </td>
-              );
-            })
-          }
+                if(moment().format('YYYYMMDD') === days.format('YYYYMMDD')){
+                  return(
+                      <td key={index}>
+                        <span style={{backgroundColor:"royalblue", color:"white", padding: "2px 5px", borderRadius: "15px"}}>{days.format('D')}</span>
+                      </td>
+                  );
+                }else if(days.format('MM') !== today.format('MM')){
+                  return(
+                      <td key={index}>
+                        <span style={{opacity:"20%"}}>{days.format('D')}</span>
+                      </td>
+                  );
+                }else{
+                  return(
+                      <td key={index}  >
+                        <span>{days.format('D')}</span>
+                      </td>
+                  );
+                }
+              })
+            }
         </tr>);
     }
     return result;
@@ -58,9 +73,12 @@ const Calendar = (props) => {
           </tbody>
         </table>
       </Body>
+      <Button><button onClick={() => {props.history.push('/addingevent');}}><GrAdd size="20"/></button></Button>
     </div>
   )
 };
+
+// ※==================================style==================================※
 
 const Head = styled.div`
   display: flex;
@@ -141,4 +159,22 @@ const Dates = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const Button = styled.div`
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
+  & button {
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+    border: none;
+    box-shadow: 1px 1px 3px gray;
+    cursor: pointer;
+    :hover{
+
+    }
+  }
+`;
+
 export default Calendar;

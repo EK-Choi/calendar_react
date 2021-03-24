@@ -1,7 +1,10 @@
 import React from "react";
 import Calendar from "./Calendar";
+import AddingEvent from "./AddingEvent";
 import styled from "styled-components";
 import { GrAdd } from "react-icons/gr";
+import {Switch, withRouter} from "react-router";
+import { Route, Link, } from "react-router-dom";
 
 class App extends React.Component{
   constructor(props){
@@ -11,15 +14,22 @@ class App extends React.Component{
     };
   }
 
+  componentDidMount(){
+    console.log(this.props);
+  }
+
   render(){
     return (
       <AppStyle>
-        <Calendar/>
-        <Button><button><GrAdd size="20"/></button></Button>
+        <Route path="/" exact component={Calendar}/>
+        {/* <Button><button onClick={() => {this.props.history.push('/addingevent');}}><GrAdd size="20"/></button></Button> */}
+        <Route path="/addingevent" component={AddingEvent}/>
       </AppStyle>
     );
   }
 }
+
+// ※==================================style==================================※
 
 const AppStyle = styled.div`
   background-color: rgb(234, 244, 250);
@@ -27,21 +37,21 @@ const AppStyle = styled.div`
   /* overflow: hidden; */
 `;
 
-const Button = styled.div`
-  position: absolute;
-  bottom: 5vh;
-  right: 5vw;
-  & button {
-    width: 45px;
-    height: 45px;
-    border-radius: 45px;
-    border: none;
-    box-shadow: 1px 1px 3px gray;
-    cursor: pointer;
-    :hover{
+// const Button = styled.div`
+//   position: absolute;
+//   bottom: 5vh;
+//   right: 5vw;
+//   & button {
+//     width: 45px;
+//     height: 45px;
+//     border-radius: 45px;
+//     border: none;
+//     box-shadow: 1px 1px 3px gray;
+//     cursor: pointer;
+//     :hover{
 
-    }
-  }
-`;
+//     }
+//   }
+// `;
 
-export default App;
+export default withRouter(App);
