@@ -3,9 +3,10 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import styled from "styled-components";
 import {useState} from 'react';
 import moment from 'moment';
-import { GrAdd } from "react-icons/gr";
+import { Link } from 'react-router-dom';
 
 const Calendar = (props) => {
+  console.log(props);
   const [getMoment, setMoment]=useState(moment());     
   const today = getMoment;
 
@@ -73,7 +74,10 @@ const Calendar = (props) => {
           </tbody>
         </table>
       </Body>
-      <Button><button onClick={() => {props.history.push('/addingevent');}}><GrAdd size="20"/></button></Button>
+      <Button>
+        <button className="completed">완료된 일정 보기</button>
+        <Link to="/addingevent"><button className="adding">+</button></Link>
+      </Button>
     </div>
   )
 };
@@ -151,28 +155,41 @@ const Weekdays = styled.div`
       color: rgb(238, 123, 123);
     }
   }
-
-`;
-
-const Dates = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Button = styled.div`
+  display: flex;
+  flex-direction: column;
   position: absolute;
   bottom: 5vh;
   right: 5vw;
-  & button {
+  align-items: center;
+  & .completed{
+    font-size: 13px;
+    background-color: rgb(200, 200, 200);
+    color: #F8F8FF;
+    border: none;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px gray;
+    margin-bottom: 10px;
+    cursor: pointer;
+    :hover{
+      background-color: black;
+    }
+  }
+  & .adding {
     width: 45px;
     height: 45px;
     border-radius: 45px;
     border: none;
     box-shadow: 1px 1px 3px gray;
+    background-color: rgb(200, 200, 200);
+    color: #F8F8FF;
+    font-size: 35px;
     cursor: pointer;
     :hover{
-
+      background-color: black;
     }
   }
 `;

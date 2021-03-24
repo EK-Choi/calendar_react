@@ -10,19 +10,18 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state={
-
+      list: ["react project", "algorithm", "meeting"]
     };
   }
 
   componentDidMount(){
     console.log(this.props);
   }
-
+  
   render(){
     return (
       <AppStyle>
-        <Route path="/" exact component={Calendar}/>
-        {/* <Button><button onClick={() => {this.props.history.push('/addingevent');}}><GrAdd size="20"/></button></Button> */}
+        <Route path="/" exact render={()=><Calendar list={this.state.list}/>}/>    
         <Route path="/addingevent" component={AddingEvent}/>
       </AppStyle>
     );
@@ -34,24 +33,6 @@ class App extends React.Component{
 const AppStyle = styled.div`
   background-color: rgb(234, 244, 250);
   height: 100vh;
-  /* overflow: hidden; */
 `;
-
-// const Button = styled.div`
-//   position: absolute;
-//   bottom: 5vh;
-//   right: 5vw;
-//   & button {
-//     width: 45px;
-//     height: 45px;
-//     border-radius: 45px;
-//     border: none;
-//     box-shadow: 1px 1px 3px gray;
-//     cursor: pointer;
-//     :hover{
-
-//     }
-//   }
-// `;
 
 export default withRouter(App);
