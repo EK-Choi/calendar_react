@@ -6,9 +6,11 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 const Calendar = (props) => {
-  console.log(props);
+  
+  const [show_completed, setShowCompleted] = React.useState(false);
   const [getMoment, setMoment]=useState(moment());     
   const today = getMoment;
+  console.log(Object.keys(props.list).indexOf(today.format('YYYY-MM-DD')));
 
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
@@ -22,9 +24,14 @@ const Calendar = (props) => {
         <tr key={week}>
           {
               Array(7).fill(0).map((data, index) => {
+                let _day = today
                 let days = today.clone().startOf('year').week(week).startOf('week').add(index, 'day');
+                const list_index = Object.keys(props.list).indexOf(_day.format('YYYY-MM-DD'));
 
-                if(moment().format('YYYYMMDD') === days.format('YYYYMMDD')){
+                // console.log(list_index);
+                // console.log(props[_day.format("YYYY-MM-DD")]);
+
+                if(moment().format('YYYY-MM-DD') === days.format('YYYY-MM-DD')){
                   return(
                       <td key={index}>
                         <span style={{backgroundColor:"royalblue", color:"white", padding: "2px 5px", borderRadius: "15px"}}>{days.format('D')}</span>
@@ -75,7 +82,9 @@ const Calendar = (props) => {
         </table>
       </Body>
       <Button>
-        <button className="completed">완료된 일정 보기</button>
+        <button className="completed" onClick={() => {
+          setShowCompleted(!show_completed);
+        }}>{show_completed ? "전체 일정 보기" : "완료된 일정만 보기"}</button>
         <Link to="/addingevent"><button className="adding">+</button></Link>
       </Button>
     </div>
